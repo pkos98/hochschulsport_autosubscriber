@@ -78,7 +78,7 @@ class Course():
         self._browser.fill_form_field(surname_field, acc_details["name"])
         self._browser.fill_form_field(street_field, acc_details["strasse"])
         self._browser.fill_form_field(postcode_field, acc_details["ort"])
-        Select(state_field).select_by_index(2) # selects student of hs-augsburg and enabled the fields below
+        Select(state_field).select_by_index(self._uni_hs_to_index(acc_details["uni_hs"])) 
         # MUST BE EXECUTED AFTER THE ACTION ABOVE
         self._browser.fill_form_field(mat_field, acc_details["matnr"])
         self._browser.fill_form_field(email_field, acc_details["email"])
@@ -92,6 +92,11 @@ class Course():
 
     def _is_existing_account(self, key_values):
         return len(key_values.keys()) == 2
+
+    def _uni_hs_to_index(self, value):
+        if value == "uni":
+            return 1
+        return 2
 
     def _parse_offers(self, raw=False):
         r = requests.get(self.url)
