@@ -58,6 +58,8 @@ class Course():
         mat_field_selector = ".bs_fval_status11"
         email_field_selector = ".bs_fval_email"
         iban_field_selector = ".bs_fval_iban"
+        bic_field_selector = ".bs_fval_bic"
+        acc_owner_selector = "#bs_lastschrift > div:nth-child(5) > div.bs_form_sp2 > input"
 
         title_rb_btn = self._browser.find_element_by_css_selector(title_radio_button_selector)
         prename_field = self._browser.find_element_by_css_selector(prename_field_selector)
@@ -68,6 +70,8 @@ class Course():
         mat_field = self._browser.find_element_by_css_selector(mat_field_selector) 
         email_field = self._browser.find_element_by_css_selector(email_field_selector)
         iban_field = self._browser.find_element_by_css_selector(iban_field_selector)
+        bic_field = self._browser.find_element_by_css_selector(bic_field_selector)
+        acc_owner_field = self._browser.find_element_by_css_selector(acc_owner_selector)
 
         self._browser.try_click(title_rb_btn)
         self._browser.fill_form_field(prename_field, acc_details["vorname"])
@@ -79,6 +83,9 @@ class Course():
         self._browser.fill_form_field(mat_field, acc_details["matnr"])
         self._browser.fill_form_field(email_field, acc_details["email"])
         self._browser.fill_form_field(iban_field, acc_details["iban"])
+        # MUST CLICK SO THAT BIC-FIELD APPEARS!
+        self._browser.try_click(acc_owner_field) 
+        self._browser.fill_form_field(bic_field, acc_details["bic"])
         # accept terms
         input_terms = self._browser.find_element_by_name("tnbed")
         self._browser.try_click(input_terms)
