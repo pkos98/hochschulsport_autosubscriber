@@ -52,9 +52,9 @@ class Course():
         self._browser.fill_form_field(pw_field, acc_details["passwort"])
             
     def _fill_form_register(self, acc_details):
-        #self._browser.try_click("bs_btn_buchen", lambda f: len(f.window_handles) ==  2)
-        #self._browser.switch_to.window(self._browser.window_handles[-1])
-        title_radio_button_selector = "#bs_kl_anm > div:nth-child(3) > div:nth-child(2) > label:nth-child(2) > input:nth-child(1)"
+        sex_button_selector = "#bs_kl_anm > div:nth-child(3) > div.bs_form_sp2 > label:nth-child(2) > input"
+        if acc_details["sex"] == "female":
+            sex_button_selector = "#bs_kl_anm > div:nth-child(3) > div.bs_form_sp2 > label:nth-child(1) > input"
         prename_field_selector = "#bs_kl_anm > div:nth-child(4) > div:nth-child(2) > input:nth-child(1)"
         surname_field_selector = "#bs_kl_anm > div:nth-child(5) > div:nth-child(2) > input:nth-child(1)"
         street_field_selector = "#bs_kl_anm > div:nth-child(6) > div:nth-child(2) > input:nth-child(1)"
@@ -66,7 +66,7 @@ class Course():
         bic_field_selector = ".bs_fval_bic"
         acc_owner_selector = "#bs_lastschrift > div:nth-child(5) > div.bs_form_sp2 > input"
 
-        title_rb_btn = self._browser.find_element_by_css_selector(title_radio_button_selector)
+        sex_rb_btn = self._browser.find_element_by_css_selector(sex_button_selector)
         prename_field = self._browser.find_element_by_css_selector(prename_field_selector)
         surname_field = self._browser.find_element_by_css_selector(surname_field_selector)
         street_field = self._browser.find_element_by_css_selector(street_field_selector)
@@ -78,7 +78,7 @@ class Course():
         bic_field = self._browser.find_element_by_css_selector(bic_field_selector)
         acc_owner_field = self._browser.find_element_by_css_selector(acc_owner_selector)
 
-        self._browser.try_click(title_rb_btn)
+        self._browser.try_click(sex_rb_btn)
         self._browser.fill_form_field(prename_field, acc_details["vorname"])
         self._browser.fill_form_field(surname_field, acc_details["name"])
         self._browser.fill_form_field(street_field, acc_details["strasse"])
