@@ -11,7 +11,12 @@ class Course():
         self.name = name
         self.url = url
         self._browser = browser
-        self.offers = self._parse_offers()
+        self._offers = None
+
+    def get_offers(self):
+        if self._offers == None:
+            self._offers = self._parse_offers()
+        return self._offers
 
     def subscribe(self, offer, acc_details):
         if not offer.get_is_bookable():

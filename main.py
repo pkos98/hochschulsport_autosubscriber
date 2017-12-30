@@ -46,12 +46,12 @@ def print_courses():
 def print_offers(course_index_or_name):
     selected_course = create_course(course_index_or_name)
     print("[+] {} has the following offers:".format(selected_course.name))
-    for offer in selected_course.offers:
+    for offer in selected_course.get_offers():
         print("\t{}".format(str(offer)))
 
 def subscribe(course_index_or_name, offer_id, acc_details):
     selected_course = create_course(course_index_or_name)
-    selected_offer = next(offer for offer in selected_course.offers if offer.id == offer_id)
+    selected_offer = next(offer for offer in selected_course.get_offers() if offer.id == offer_id)
     if not "pw" in acc_details:
         selected_course.subscribe(selected_offer, acc_details) 
 
