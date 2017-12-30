@@ -1,4 +1,5 @@
 import os
+from platform import system
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -55,12 +56,13 @@ class Browser(webdriver.Firefox, webdriver.Chrome):
         if self._is_started:
             return
         user_agent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.53 Safari/525.19"
-        is_windows = os.name == "nt"
-        # Prefer chrome
         opts = ChromeOptions()
         opts.add_argument("user-agent=" + user_agent)
-        if is_windows:
-            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./win_drivers/chromedriver.exe")
-        else:  # If its Mac or Linux
-            webdriver.Chrome.__init__(self, chrome_options=opts)
+        current_os = system()
+        if current_os == "Windows":
+            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./win_drivers/chromedriver_win.exe")
+        elif current_os == "Darwin": # Mac OSX
+            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./win_drivers/chromedriver_mac")
+        else:  # Linux
+            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./win_drivers/chromedriver_linux")
         self._is_started = True
