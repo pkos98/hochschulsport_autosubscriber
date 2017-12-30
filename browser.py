@@ -60,9 +60,9 @@ class Browser(webdriver.Firefox, webdriver.Chrome):
         opts.add_argument("user-agent=" + user_agent)
         current_os = system()
         if current_os == "Windows":
-            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./win_drivers/chromedriver_win.exe")
+            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./webdrivers/chromedriver_win.exe")
         elif current_os == "Darwin": # Mac OSX
-            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./win_drivers/chromedriver_mac")
+            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./webdrivers/chromedriver_mac")
         else:  # Linux
-            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./win_drivers/chromedriver_linux")
+            webdriver.Chrome.__init__(self, chrome_options=opts, executable_path="./webdrivers/chromedriver_linux")
         self._is_started = True
